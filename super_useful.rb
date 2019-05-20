@@ -29,16 +29,22 @@ def feed_me_a_fruit
     if maybe_fruit == "coffee"
       puts "Thanks for the coffee but I wanted fruit."
       retry
-    else
-      raise "Sorry Bye"
     end
+  ensure
+      raise "Sorry Bye"
   end
-end  
+end
 
 # PHASE 4
 class BestFriend
   def initialize(name, yrs_known, fav_pastime)
-    @name = name
+    begin
+      @name = name
+      if yrs_known < 5
+        rescue RuntimeError.new("Years Known Should Be greater than Five")
+        retry
+        end
+      end
     @yrs_known = yrs_known
     @fav_pastime = fav_pastime
   end
