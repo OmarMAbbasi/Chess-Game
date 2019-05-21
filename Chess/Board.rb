@@ -8,7 +8,7 @@ class Board
   def initialize
     @sentinel = NullPiece.instance
     @rows = Array.new(8){Array.new(8){@sentinel}}
-    debugger
+    # debugger
     @rows[1].each.with_index do |space,idx|
       @rows[1][idx] = Piece.new(:black,self,[1,idx])
     end
@@ -55,31 +55,41 @@ class Board
     @rows[pos] = val
   end
 
+  #comment out the until loop when done with move_piece
   def move_piece(start_pos, end_pos)
-    raise EmptySquareError if self[start_pos].is_a?(NullPiece)
-    # raise IllegalMoveError unless valid_pos?(end_pos)
-    self[end_pos] = self[start_pos]
+    i = 0
+    begin
+      valid_pos?(start_pos)
+      valid_pos?(end_pos)
+      self[end_pos] = self[start_pos]
+      self[start_pos] = @sentinel
+    rescue EmptySquareError
+      until i == 5
+        i += 1
+        puts "There is no piece there"
+        retry
+      end
+    rescue IllegalMoveError
+      until i == 5
+        i += 1
+      puts "Not a legal move"
+      retry
+      end
+    end
     
-    self[start_pos] = @sentinel
   end
 
-  def valid_pos?(foo)
+  def valid_pos?(pos)
+    raise IllegalMoveError if pos[0] < 0 || pos[0] > 7 || pos[1] < 0 || pos[1] > 7 
+    raise EmptySquareError if self[pos].is_a?(NullPiece)
+    # raise IllegalMoveError unless valid_pos?(pos)
 
-    puts "hi"
-
+    return nil
   end
 
   class EmptySquareError < ArgumentError; end
   class IllegalMoveError < ArgumentError; end
 
-
-  def init_black
-
-  end
-
-  def init_white
- 
-  end
 
 
 
@@ -129,7 +139,7 @@ end
 # require_relative "Board.rb"
 a = Board.new
 print a.rows
-#a.move_piece([0,3],[1,2])
+a.move_piece([3,3],[8,12])
 
 
 
