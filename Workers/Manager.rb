@@ -3,7 +3,7 @@ class Manager < Employee
     
     def initialize (name, title, salary,&boss)
       @sub_employees = []
-      super(name, title, salary, boss)
+      super(name, title, salary, &boss)
     end
 
     def add_employees(name,title,salary)
