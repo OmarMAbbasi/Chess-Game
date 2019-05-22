@@ -1,4 +1,6 @@
 require "io/console"
+require 'colorize'
+require 'colorized_string'
 
 KEYMAP = {
   " " => :space,
@@ -88,7 +90,15 @@ class Cursor
   end
 
   def update_pos(diff)
-    
-
+    given_pos = MOVES[diff]
+    possible_pos_x = given_pos[0]+@cursor_pos[0] 
+    possible_pos_y = given_pos[1]+@cursor_pos[1]
+    possible_pos = [possible_pos_x, possible_pos_y]
+    begin
+      valid_pos(possible_pos)
+      @cursor_pos = possible_pos
+    rescue IllegalMoveError
+      retry
+    end
   end
 end

@@ -137,9 +137,9 @@ class Board
 end
 
 # require_relative "Board.rb"
-a = Board.new
-print a.rows
-a.move_piece([3,3],[8,12])
+# a = Board.new
+# a.move_piece([3,3],[8,12])
+# print a.rows
 
 
 
