@@ -39,6 +39,7 @@ class Cursor
   def initialize(cursor_pos, board)
     @cursor_pos = cursor_pos
     @board = board
+    @selected = false
   end
 
   def get_input
@@ -47,6 +48,11 @@ class Cursor
   end
 
   private
+
+  def toggle_selected
+    @selected = true if @selected == false
+    @selected = false if @selected == true
+  end
 
   def read_char
     STDIN.echo = false # stops the console from printing return values
@@ -80,7 +86,7 @@ class Cursor
   def handle_key(key)
     case key
     when :return, :space
-      return @cursor_pos
+      toggle_selected
     when :left, :right, :up, :down
       update_pos(key)
       return nil

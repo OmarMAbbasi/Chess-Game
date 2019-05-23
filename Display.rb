@@ -15,16 +15,17 @@ class Display
   end
 
   def render
-    until false
+    #until false # Commeting loop out
       @board.rows.each do |row|
         row.each_with_index do |space,idx|
-          
           ele = space
-          print  " #{ele.inspect} "
+          if @board.rows(idx) == @cursor_pos 
+            print  " #{ele.inspect.colorize(:red)} "
+          end
         end
         puts
       end
-    end
+    #end Commeting loop out
     
   end
 
